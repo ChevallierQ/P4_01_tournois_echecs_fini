@@ -1,0 +1,5 @@
+pip==20.2.3
+setuptools==49.2.1
+tinydb==4.4.0
+flake8==3.9.2
+flake8-html==0.4.1
