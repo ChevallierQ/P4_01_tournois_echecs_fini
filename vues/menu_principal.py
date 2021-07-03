@@ -3,7 +3,7 @@ from os import system as sys
 from vues.outils_vues import OutilsVues
 from controleurs.outils_controleurs import OutilsControleurs
 from vues.menu_joueur import menu_joueur
-from modeles.tournoi import Tournoi
+from controleurs.gestion_creation_tournoi import gestion_creation_tournoi as gct
 from vues.menu_tournoi import menu_tournoi
 
 
@@ -23,7 +23,7 @@ def menu_principal():
             sl(2)
             continue
         if choix_principal == 1:
-            Tournoi()
+            gct()
         if choix_principal == 2:
             menu_joueur()
         if choix_principal == 3:

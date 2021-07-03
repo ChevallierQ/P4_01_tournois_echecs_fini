@@ -1,10 +1,12 @@
 from modeles.paires import Paires
-from vues.affichage_tournois import AffichageTournois
+from vues.affichage_tournois import *
 from modeles.match import Match
 from modeles.tours import Tours
 from modeles.tournoi import Tournoi
 from vues.outils_vues import OutilsVues
 from controleurs.modification_classement import ModificationClassement
+from vues.affichage_creation_tour import affichage_creation_tour
+from vues.affichage_creation_match import affichage_creation_match
 
 
 class GestionTournoi:
@@ -28,42 +30,33 @@ class GestionTournoi:
         score_final = {}
         x = 1
         while x <= self.nb_tours:
-            affichage = AffichageTournois("\n")
-            affichage.affichage()
-            affichage = AffichageTournois("Tour numero {} : ".format(x))
-            affichage.affichage()
+            print(debut_tours(x))
             if x == 1:
                 paires = Paires(self.joueurs)
                 paires_genere = paires.generation_paires_tour_1()
-                tour = Tours()
+                data = affichage_creation_tour()
+                tour = Tours(data[0], data[1], data[2])
             if x > 1:
                 paires = Paires(self.joueurs, scores, x)
                 paires_genere = paires.generation_paires()
-                tour = Tours()
+                data = affichage_creation_tour()
+                tour = Tours(data[0], data[1], data[2])
             nom_joueurs_match = []
             y = 1
             for arg in paires_genere:
-                affichage = AffichageTournois("\n")
-                affichage.affichage()
-                affichage = AffichageTournois("Match {} :".format(y))
-                affichage.affichage()
-                affichage = AffichageTournois(arg[0])
-                affichage.affichage()
-                affichage = AffichageTournois(paires_genere[arg][0])
-                affichage.affichage()
+                print(paires_generes(y, arg[0], paires_genere[arg][0]))
                 nom_joueurs_match.append(arg[0])
                 nom_joueurs_match.append(paires_genere[arg][0])
                 y += 1
-            affichage = AffichageTournois("\nAppuyer sur entrer pour continuer")
-            affichage.affichage_input()
+            input(affichage_input())
             a = 0
             z = 1
             resultat_tour = []
             while z <= y - 1:
-                match = Match(nom_joueurs_match[a], nom_joueurs_match[a+1])
+                data = affichage_creation_match(nom_joueurs_match[a])
+                match = Match(nom_joueurs_match[a], nom_joueurs_match[a+1], data[0], data[1])
                 match_score = match.get_tulpe()
-                affichage = AffichageTournois("\nLe score du match {} : {}".format(z, match_score))
-                affichage.affichage()
+                print(score_match(z, match_score))
                 resultat_tour.append("Match {}".format(z))
                 resultat_tour.append(match_score)
                 if x == 1:
@@ -83,8 +76,7 @@ class GestionTournoi:
                 a += 2
             tours.append(tour.get_data_tour(resultat_tour))
             x += 1
-        affichage = AffichageTournois("\nAppuyer sur entrer pour continuer")
-        affichage.affichage_input()
+        input(affichage_input())
         instance_save = OutilsVues()
         score_final = sorted(score_final.items(), key=lambda t: t[1], reverse=True)
         if instance_save.sauvegarde(score_final) == 1:

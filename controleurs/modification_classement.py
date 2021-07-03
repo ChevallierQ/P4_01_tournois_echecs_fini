@@ -1,4 +1,4 @@
-from vues.affichage_tournois import AffichageTournois
+from vues.affichage_modification_classement import *
 from controleurs.outils_controleurs import OutilsControleurs
 from os import system as sys
 from tinydb import TinyDB, Query
@@ -28,13 +28,9 @@ class ModificationClassement:
                     z = 1
                     for arg in self.nom_joueurs_classement:
                         if arg not in list_nom:
-                            affichage = AffichageTournois("{} : {}".format(z, arg))
-                            affichage.affichage()
+                            print(nom_disponible(z, arg))
                         z += 1
-                    affichage = AffichageTournois("\n---------------------------")
-                    affichage.affichage()
-                    affichage = AffichageTournois("\nEntrez l'indice du joueur pour modifier son classement : ")
-                    reponse = int(affichage.affichage_input())
+                    reponse = int(input(input_choix_joueur()))
                 except ValueError:
                     print("\nVous n'avez pas saisi un nombre valide.")
                     sys(OutilsControleurs.which_os())
@@ -53,8 +49,7 @@ class ModificationClassement:
             reponse_2 = 0
             while reponse_2 == 0 or reponse_2 > x:
                 try:
-                    affichage = AffichageTournois("\nEntrez le classement du joueur {} : ".format(nom_joueur))
-                    reponse_2 = int(affichage.affichage_input())
+                    reponse_2 = int(input(input_choix_classement(nom_joueur)))
                 except ValueError:
                     print("\nVous n'avez pas saisi un nombre valide.")
                     continue
@@ -81,15 +76,10 @@ class ModificationClassement:
                     x = 1
                     for arg in self.nom_joueurs_classement:
                         arg = str(arg).replace("\n", "")
-                        affichage = AffichageTournois("{} : {}".format(x, arg))
-                        affichage.affichage()
+                        print(nom_disponible(x, arg))
                         x += 1
-                    affichage = AffichageTournois("{} : Retour".format(x))
-                    affichage.affichage()
-                    affichage = AffichageTournois("\n---------------------------")
-                    affichage.affichage()
-                    affichage = AffichageTournois("\nEntrez l'indice du joueur pour modifier son classement : ")
-                    reponse = int(affichage.affichage_input())
+                    print(retour(x))
+                    reponse = int(input(input_choix_joueur()))
                 except ValueError:
                     print("\nVous n'avez pas saisi un nombre valide.")
                     sys(OutilsControleurs.which_os())
@@ -106,8 +96,7 @@ class ModificationClassement:
             reponse_2 = 0
             while reponse_2 == 0 or reponse_2 > x:
                 try:
-                    affichage = AffichageTournois("\nEntrez le classement du joueur {} : ".format(nom_joueur))
-                    reponse_2 = int(affichage.affichage_input())
+                    reponse_2 = int(input(input_choix_classement(nom_joueur)))
                 except ValueError:
                     print("\nVous n'avez pas saisi un nombre valide.")
                     continue

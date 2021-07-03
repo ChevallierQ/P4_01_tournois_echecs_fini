@@ -4,6 +4,7 @@ from vues.outils_vues import OutilsVues
 from controleurs.outils_controleurs import OutilsControleurs
 from vues.menu_joueur_liste import menu_joueur_liste
 from modeles.joueur import Joueur
+from controleurs.gestion_creation_joueur import gestion_creation_joueur as gcj
 from controleurs.modification_classement import ModificationClassement
 
 
@@ -26,7 +27,7 @@ def menu_joueur():
         if choix_menu_joueur == 1:
             menu_joueur_liste()
         if choix_menu_joueur == 2:
-            Joueur()
+            gcj()
         if choix_menu_joueur == 3:
             if Joueur.joueurs_alpha() == 0:
                 print("\n---------------------------\n")
